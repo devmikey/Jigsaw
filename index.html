@@ -48,14 +48,14 @@ app.listen(3000);</code></pre>
 
 <p>Need to test your own middleware - then use the jigsaw client</p>
 <pre><code>var client = require('jigsaw/client/client');
-var distributionEnvelope = require('jigsaw/client/messages/distributionEnvelope');
+var envelope = require('jigsaw/client/messages/distributionEnvelope');
 var msgProperties = {
     "serviceName" : "urn:nhs-itk:services:201005:SendDocument-v1-0",
     "key":  "client.pem",
-    "properties": { "addresslist": new Array("urn:nhs-uk:addressing:ods:Y88764"),
-                    "auditIdentity": new Array("urn:nhs-uk:addressing:ods:R59"),
-                    "manifest": [
-                        {"mimetype": "application/pdf", "data": "sampledata"}
+    "properties": {"addresslist": new Array("urn:nhs-uk:addressing:ods:Y88764"),
+                   "auditIdentity": new Array("urn:nhs-uk:addressing:ods:R59"),
+                   "manifest": [
+                      {"mimetype": "application/pdf", "data": "sampledata"}
                     ],
                     "senderAddress": "urn:nhs-uk:addressing:ods:R59:oncology"
                  },
@@ -64,7 +64,7 @@ var msgProperties = {
         console.log("your host sent this:" + ctx.response);
     } 
 }
-var msg = distributionEnvelope.create(msgProperties);
+var msg = envelope.create(msgProperties);
 client.send(msg);</code></pre>
 
 </section>
