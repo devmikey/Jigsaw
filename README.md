@@ -58,14 +58,17 @@ Jigsaw makes use of several key modules:
 `````javascript
 
 var jigsaw = require('jigsaw');
-var clinicalRoutes = require('./lib/routes/clinicalRoutes');
+var interactionHandler = jigsaw.interactionHandler();
 
-// this builds up the route paths for your services and would typically be retrieved from your configuration database
-routes = clinicalRoutes.init();
+var documentProcessor = function(req,res){
+	console.log(req);
+}
+var routes = new Array();
+routes.push(interactionHandler.create("/sync/clinicaldocuments", "requestException", [], documentProcessor));
 
 // pass the routes paths in and get an instance of a jigsaw server
 var app = jigsaw.createServer(routes);
-
+app.addKey("client_public.pem");
 // start listening for messages
-app.listen(18194);
+app.listen(3000);
 
