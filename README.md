@@ -52,7 +52,7 @@ Jigsaw makes use of several key modules:
 * Gallery of demonstration Applications
 * Middleware
     * Databases Stores
-        *SQL Server Store
+        * SQL Server Store
         * Oracle Store
     * Support Alert
         * Email
