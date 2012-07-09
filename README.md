@@ -15,24 +15,8 @@ Jigsaw makes use of several key modules:
 * xml-crypto
 * xmldom
 
-## Usage
 
-### ITK Middleware (Handles ITK client requests)
-`````javascript
-
-var jigsaw = require('jigsaw');
-var clinicalRoutes = require('./lib/routes/clinicalRoutes');
-
-// this builds up the route paths for your services and would typically be retrieved from your configuration database
-routes = clinicalRoutes.init();
-
-// pass the routes paths in and get an instance of a jigsaw server
-var app = jigsaw.createServer(routes);
-
-// start listening for messages
-app.listen(18194);
-
-##Features
+## Features
 
 * An ITK Client which can communicate with any ITK compliant server
     * Creation of Soap packets
@@ -45,7 +29,7 @@ app.listen(18194);
     * Queue Collection Service
     * Clinical Correspondence Service
 
-##Roadmap
+## Roadmap
 
 * Jigsaw Management Console with the following features:
     * Route configuration
@@ -67,3 +51,21 @@ app.listen(18194);
 * Documentation
 * Accreditation - go through Toolkit accreditation
 * Website
+
+## Usage
+
+### ITK Middleware (Handles ITK client requests)
+`````javascript
+
+var jigsaw = require('jigsaw');
+var clinicalRoutes = require('./lib/routes/clinicalRoutes');
+
+// this builds up the route paths for your services and would typically be retrieved from your configuration database
+routes = clinicalRoutes.init();
+
+// pass the routes paths in and get an instance of a jigsaw server
+var app = jigsaw.createServer(routes);
+
+// start listening for messages
+app.listen(18194);
+
