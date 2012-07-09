@@ -1,6 +1,6 @@
 ##Jigsaw
 
-Jigsaw is an implementation of the Interopeability Toolkit (ITK) specifications for the NHS.
+Jigsaw is an implementation of the Interoperability Toolkit (ITK) specifications for the NHS.
 
 Jigsaw makes use of several key modules:
 
