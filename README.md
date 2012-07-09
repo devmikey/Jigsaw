@@ -1,4 +1,4 @@
-Jigsaw##
+##Jigsaw
 
 Jigsaw is an implementation of the Interopeability Toolkit (ITK) specifications for the NHS.
 
@@ -15,7 +15,7 @@ Jigsaw makes use of several key modules:
 * xml-crypto
 * xmldom
 
-Features##
+##Features
 
 * An ITK Client which can communicate with any ITK compliant server
     * Creation of Soap packets
@@ -28,7 +28,7 @@ Features##
     * Queue Collection Service
     * Clinical Correspondence Service
 
-Roadmap##
+##Roadmap
 
 * Jigsaw Management Console with the following features:
     * Route configuration
