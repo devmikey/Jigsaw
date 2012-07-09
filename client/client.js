@@ -1,5 +1,5 @@
 var fs = require('fs');
-var ws = require('ws.js')
+var ws = require('ws.js');
 
 exports.send = function(msg) {
     var body = msg.toString(msg);
