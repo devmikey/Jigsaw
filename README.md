@@ -7,9 +7,8 @@ This is currently a barebones implementation.
 It has been written in javascript and runs on node.js and mongoDB
 
 ## Install
-
-Jigsaw has not been added to npm yet as it is still in developer. 
-To install clone from git then manually run npm install in the folder
+. 
+To install clone from git then run npm install in the folder
 
     git clone https://github.com/devmikey/Jigsaw.git
     cd jigsaw
