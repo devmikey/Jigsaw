@@ -11,6 +11,7 @@ routes = clinicalRoutes.init();
 
 // pass the routes paths in and get an instance of a jigsaw server
 var app = jigsaw.createServer(routes);
+app.addKey("../certs/client_public.pem");
 
 // start listening for messages
 app.listen(3000);

@@ -4,7 +4,7 @@
   "author": "devmikey <devmikey.js@gmail.com>",
   "description": "An Implementation of an ITK Client and a Middleware",
   "contributors": [],
-  "main": "./lib/jigsaw-server.js",
+  "main": "./lib/jigsaw.js",
   "keywords": [
     "digital signature",
     "itk",
@@ -24,6 +24,7 @@
     "winston": ">= 0.6.1",
     "ws.js": "git://github.com/devmikey/ws.js.git",
     "xml2js": ">= 0.1.14",
+    "xml-crypto": ">= 0.0.6",
     "xmldom": ">= 0.1.11"
   },
   "devDependencies": [],

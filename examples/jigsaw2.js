@@ -44,4 +44,5 @@ var custommiddleware = [testmiddleware];
 var routes = new Array();
 routes.push(interactionHandler.create("/async/clinicaldocuments", "requestException", [],  callback));
 var app = jigsaw.createServer(routes);
+app.addKey("../certs/client_public.pem");
 app.listen(3001);
