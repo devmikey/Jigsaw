@@ -7,7 +7,7 @@ This is currently a barebones implementation.
 It has been written in javascript and runs on node.js and mongoDB
 
 ## Install
-. 
+ 
 To install clone from git then run npm install in the folder
 
     git clone https://github.com/devmikey/Jigsaw.git
