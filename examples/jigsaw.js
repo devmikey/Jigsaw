@@ -56,9 +56,9 @@ routes.push(interactionHandler.create("/async/clinicaldocuments", "async", custo
 *    No middleware used for the queue collection service
 */
 
-routes.push(interactionHandler.create("/queue/queuemessage", "sync", [], queueProcessor.syncRequestResponseException));
-routes.push(interactionHandler.create("/queue/retrievebatch", "sync", [], queueProcessor.syncRequestResponseException));
-routes.push(interactionHandler.create("/queue/confirmcollection", "sync", [], queueProcessor.syncRequestResponseException));
+routes.push(interactionHandler.create("/queue/queuemessage", "sync", [], queueProcessor.addtoqueue));
+routes.push(interactionHandler.create("/queue/retrievebatch", "sync", [], queueProcessor.getfromqueue));
+routes.push(interactionHandler.create("/queue/confirmcollection", "sync", [], queueProcessor.removefromqueue));
 
 
 // pass the routes paths in and get an instance of a jigsaw server

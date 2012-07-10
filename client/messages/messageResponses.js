@@ -44,6 +44,6 @@ exports.error = function(error) {
     return getEnvelope(itkError(error));
 }
 
-exports.response = function(msg){
-   return getEnvelope(msg);
+exports.response = function(header, msg){
+   return getEnvelope(header, msg);
 }

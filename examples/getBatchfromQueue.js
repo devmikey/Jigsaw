@@ -23,7 +23,7 @@ var msgProperties = {
                     ],
         "action": "urn:nhs-itk:services:201005:RetrieveBatch"
     },
-    "key": "../certs/client.pem", // should load from certificate store using the friendlyName
+    "key": "../certs-client/client.pem", // should load from certificate store using the friendlyName
     "properties": { "addresslist": new Array("urn:nhs-uk:addressing:ods:devmikey:receiverid", "urn:nhs-uk:addressing:ods:devmikey:receiverid2"),
         "auditIdentity": new Array("urn:nhs-uk:addressing:ods:devmikey:myid", "urn:nhs-uk:addressing:ods:devmikey:myid2"),
         "manifest": [
