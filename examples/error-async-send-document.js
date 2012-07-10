@@ -1,5 +1,5 @@
 var client = require('../client/client');
-var distributionEnvelope = require('../client/messages/distributionEnvelope');
+var distributionEnvelope = require('../messages/distributionEnvelope');
 
 
 /* Example of implementing a Jigsaw server

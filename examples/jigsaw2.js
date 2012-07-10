@@ -7,7 +7,7 @@
 
 var jigsaw = require('../lib/jigsaw.js');
 var interactionHandler = require('../lib/interactionHandler');
-var messageResponses = require('../client/messages/messageResponses');
+var messageResponses = require('../messages/messageResponses');
 
 // in response to an async call a http 200 message should be returned
 var httpResponse = function(req, res, callback) {

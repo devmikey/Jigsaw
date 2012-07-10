@@ -1,6 +1,6 @@
 var client = require('../client/client');
 /* not sure what this should be wrapped as? */
-var distributionEnvelope = require('../client/messages/distributionEnvelope');
+var distributionEnvelope = require('../messages/distributionEnvelope');
 
 /* This example demonstrates how to send a message to the queue
 

@@ -1,5 +1,5 @@
 var client = require('../client/client');
-var distributionEnvelope = require('../client/messages/distributionEnvelope');
+var distributionEnvelope = require('../messages/distributionEnvelope');
 
 var msgProperties = {
     "serviceName": "urn:nhs-itk:services:201005:SendDocument-v1-0",
