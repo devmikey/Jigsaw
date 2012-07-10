@@ -36,7 +36,7 @@
 <p>We've put together an easy to use framework to enable developers to get up to speed with ITK as rapidly as possible</p>
 <p>Spin up an example ITK Host to test your client</p>
 <pre><code>var jigsaw = require('jigsaw');
-var interactionHandler = jigsaw.interactionHandler();
+var interactions = jigsaw.interactionHandler();
 
 process = function(req, res, callback) {
     var msg = "<document><id>12345</id></document>";     
@@ -44,7 +44,7 @@ process = function(req, res, callback) {
 }
 
 var routes = new Array();
-routes.push(interactionHandler.create("/sync/clinicaldocuments", "sync", [], process));
+routes.push(interactions.create("/docs", "sync", [], process));
 
 var app = jigsaw.createServer(routes);
 app.addPublicKey("./certs-server/server_public.pem");
@@ -52,7 +52,7 @@ app.listen(3000);</code></pre>
 
 <p>Need to test your own middleware - then use the jigsaw client</p>
 <pre><code>var client = require('jigsaw/client/client');
-var distributionEnvelope = require('jigsaw/messages/distributionEnvelope');
+var envelope = require('jigsaw/messages/distributionEnvelope');
 
 var msgProperties = {
     "serviceName": "urn:nhs-itk:services:201005:SendDocument-v1-0",
@@ -64,14 +64,14 @@ var msgProperties = {
                     ],
         "senderAddress": "urn:nhs-uk:addressing:ods:R59"
     },
-    "url": "http://localhost:3000/sync/clinicaldocuments",
+    "url": "http://localhost:3000/docs",
     "handler": function(ctx) {
         console.log("http response code:" + ctx.statusCode);
         console.log("soap request : " + ctx.request);
         console.log("soap response :" + ctx.response);
     }
 }
-var msg = distributionEnvelope.create(msgProperties);
+var msg = envelope.create(msgProperties);
 client.send(msg);</code></pre>
 
 </section>
