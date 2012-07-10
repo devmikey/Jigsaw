@@ -15,16 +15,16 @@ Example of use;
 
 
 */
-exports.simpleMessageResponse = function(){
-   return  '<itk:SimpleMessageResponse>OK</itk:SimpleMessageResponse>'; 
+exports.simpleMessageResponse = function(result){
+   return  '<itk:SimpleMessageResponse>' + result + '</itk:SimpleMessageResponse>'; 
 }
 
-exports.asyncResponse = function(){
+exports.asyncResponse = function(result){
    return  '<itk:asyncResponse>Place holder for async response message</itk:asyncResponse>'; 
 }
 
-exports.syncResponse = function(){
-   return  '<itk:syncResponse>Place holder for sync response message</itk:syncResponse>'; 
+exports.syncResponse = function(result){
+   return  '<itk:syncResponse>' + result + '</itk:syncResponse>'; 
 }
 
 exports.itkError = function(err) {
@@ -44,7 +44,7 @@ exports.itkError = function(err) {
     msg.push('</soap:Fault>');
     return msg.join('');
 }
-exports.getMessage = function(header, body) {
+exports.getEnvelope = function(header, body) {
 
     var msg = new Array();
     msg.push('<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:itk="urn:nhs-itk:ns:201005">');
