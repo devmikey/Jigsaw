@@ -38,7 +38,7 @@
 <pre><code>var jigsaw = require('jigsaw');
 var interactions = jigsaw.interactionHandler();
 
-process = function(req, res, callback) {
+var process = function(req, res, callback) {
     var msg = "<document><id>12345</id></document>";     
     return callback(null, msg);
 }
