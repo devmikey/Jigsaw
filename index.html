@@ -36,35 +36,42 @@
 <p>We've put together an easy to use framework to enable developers to get up to speed with ITK as rapidly as possible</p>
 <p>Spin up an example ITK Host to test your client</p>
 <pre><code>var jigsaw = require('jigsaw');
-var interactions = jigsaw.interactionHandler();
-var process = function(req,res){
-    console.log(req);
+var interactionHandler = jigsaw.interactionHandler();
+
+process = function(req, res, callback) {
+    var msg = "<document><id>12345</id></document>";     
+    return callback(null, msg);
 }
+
 var routes = new Array();
-routes.push(interactions.create("/docs", "requestException", [], process));
+routes.push(interactionHandler.create("/sync/clinicaldocuments", "sync", [], process));
+
 var app = jigsaw.createServer(routes);
-app.addKey("client_public.pem");
+app.addPublicKey("./certs-server/server_public.pem");
 app.listen(3000);</code></pre>
 
 <p>Need to test your own middleware - then use the jigsaw client</p>
 <pre><code>var client = require('jigsaw/client/client');
-var envelope = require('jigsaw/client/messages/distributionEnvelope');
+var distributionEnvelope = require('jigsaw/messages/distributionEnvelope');
+
 var msgProperties = {
-    "serviceName" : "urn:nhs-itk:services:201005:SendDocument-v1-0",
-    "key":  "client.pem",
-    "properties": {"addresslist": new Array("urn:nhs-uk:addressing:ods:Y88764"),
-                   "auditIdentity": new Array("urn:nhs-uk:addressing:ods:R59"),
-                   "manifest": [
-                      {"mimetype": "application/pdf", "data": "sampledata"}
+    "serviceName": "urn:nhs-itk:services:201005:SendDocument-v1-0",
+    "key": "./certs-client/client.pem",
+    "properties": { "addresslist": new Array("urn:nhs-uk:addressing:ods:Y88764"),
+        "auditIdentity": new Array("urn:nhs-uk:addressing:ods:R59"),
+        "manifest": [
+                        { "mimetype": "application/pdf", "data": "data" }
                     ],
-                    "senderAddress": "urn:nhs-uk:addressing:ods:R59:oncology"
-                 },
-    "url": "http://localhost:3000/docs",
+        "senderAddress": "urn:nhs-uk:addressing:ods:R59"
+    },
+    "url": "http://localhost:3000/sync/clinicaldocuments",
     "handler": function(ctx) {
-        console.log("your host sent this:" + ctx.response);
-    } 
+        console.log("http response code:" + ctx.statusCode);
+        console.log("soap request : " + ctx.request);
+        console.log("soap response :" + ctx.response);
+    }
 }
-var msg = envelope.create(msgProperties);
+var msg = distributionEnvelope.create(msgProperties);
 client.send(msg);</code></pre>
 
 </section>
