@@ -7,42 +7,22 @@
 
 var jigsaw = require('../lib/jigsaw.js');
 var interactionHandler = require('../lib/interactionHandler');
+var messageResponses = require('../client/messages/messageResponses');
 
-// setup the request handler
-var callback = function(req, res) {
-    try {
-        console.log("request received in application a");
-    }
-    catch(err) {
-        // Any errors caught will be handled by the requestException module and a soapFault returned
-        //if you wish to change the error description the
-        throw err;
-    }
+// typical requestException Interaction
+var requestException = function(req, res, callback) {
+    var msg = messageResponses.simpleResponse("OK");
+    console.log('received an async message, sending response back '+msg)
+    return callback(null, msg);
 }
 
-// example of custom middleware - sends a udp broadcast saying a new message has been received
-var testmiddleware = function(req, res, next) {
-    var app = req.app;
-    var msg = app.body.json;
-    // send a udp broadcast saying we have a new message
+/**
+ * this piece of middleware checks the soap properites and ensures they comply with the ITK specifications
+ **/
 
-    var dgram = require('dgram');
-    var message = new Buffer("new-document");
-    var client = dgram.createSocket("udp4");
-    client.send(message, 0, message.length, 41234, "localhost", function(err, bytes) {
-        console.log("sending udp update ")
-        client.close();
-    });
-
-
-    next();
-}
-
-// Build the route paths - typically these would be loaded from a store
-var custommiddleware = [testmiddleware];
-
+var custommiddleware = [];
 var routes = new Array();
-routes.push(interactionHandler.create("/async/clinicaldocuments", "requestException", [],  callback));
+routes.push(interactionHandler.create("/asyncreply/clinicaldocuments", "sync", custommiddleware,  requestException));
 var app = jigsaw.createServer(routes);
-app.addKey("../certs/client_public.pem");
+app.addPublicKey("../certs-server/server_public.pem");
 app.listen(3001);

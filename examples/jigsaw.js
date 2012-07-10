@@ -4,14 +4,66 @@
 */
 
 var jigsaw = require('../lib/jigsaw.js');
-var clinicalRoutes = require('../lib/routes/clinicalRoutes');
+var documentProcessor = require('../lib/processors/documentProcessor');
+var queueProcessor = require('../lib/processors/queueProcessor');    
+var interactionHandler = require('../lib/interactionHandler');
 
-// this builds up the route paths for your services and would typically be retrieved from your configuration database
-routes = clinicalRoutes.init();
+var distributionEnvelopeTests = require('../tests/distributionEnvelope');
+
+// payload middleware test
+
+var testPayload = function(req, res, next) {
+    var app = req.app;
+    var logger = app.logger;
+    var msg = app.body.json;
+
+    // need to look at some of the test modules like vows
+    distributionEnvelopeTests.validate(logger, msg, function(results) {
+        if(results.honored == results.total) {
+            logger.info('The Distribution Envelope is valid');
+        }
+        else {
+            logger.info('The Distribution Envelope is not valid');
+            err = new Error("The Distribution Envelope is not valid");
+            return next(err);
+        }
+
+    });
+
+    return next();
+};
+
+// Build the route paths - typically these would be loaded from a store
+var custommiddleware = [testPayload];
+
+var routes = new Array();
+
+/* The clinical document service in this example is configured as follows:
+*
+*    /sync/clinicaldocuments - sync invocation style using the request exception interaction pattern
+*    /async/clinicaldocuments - async invocation style using the request response exception interaction pattern
+*
+*    No middleware in this queue collection service
+*/
+
+routes.push(interactionHandler.create("/simple/clinicaldocuments", "sync", custommiddleware, documentProcessor.requestException));
+routes.push(interactionHandler.create("/sync/clinicaldocuments", "sync", custommiddleware, documentProcessor.syncRequestResponseException));
+routes.push(interactionHandler.create("/async/clinicaldocuments", "async", custommiddleware, documentProcessor.asyncRequestResponseException));
+
+/* The queue collection service in this example is configured as follows:
+*
+*    all routes use the sync invocation with the request response exception interaction pattern
+*    No middleware used for the queue collection service
+*/
+
+routes.push(interactionHandler.create("/queue/queuemessage", "sync", [], queueProcessor.syncRequestResponseException));
+routes.push(interactionHandler.create("/queue/retrievebatch", "sync", [], queueProcessor.syncRequestResponseException));
+routes.push(interactionHandler.create("/queue/confirmcollection", "sync", [], queueProcessor.syncRequestResponseException));
+
 
 // pass the routes paths in and get an instance of a jigsaw server
 var app = jigsaw.createServer(routes);
-app.addKey("../certs/client_public.pem");
+app.addPublicKey("../certs-server/server_public.pem");
 
 // start listening for messages
 app.listen(3000);

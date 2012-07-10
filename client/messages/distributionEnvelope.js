@@ -50,9 +50,7 @@ function create(messageProperties)
         }
     }
 
-    messageProperties.toString = function() {
-        return toString(messageProperties);
-    }
+    messageProperties.payload = toString(messageProperties);
    
     return messageProperties;
 }

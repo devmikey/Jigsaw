@@ -1,33 +1,32 @@
 var fs = require('fs');
 var ws = require('ws.js');
 
-exports.send = function(msg) {
-    var body = msg.toString(msg);
-    var x509 = getX509Token(msg.key);
+exports.send = function(properties) {
+    var x509 = getX509Token(properties.key);
 
     var friendlyName = getFriendlyName(x509);
-    if(msg.userName == undefined) {
-        msg.userName = friendlyName;
+    if(properties.userName == undefined) {
+        properties.userName = friendlyName;
     }
 
-    var soapMsg = getSoapMsg(body);
-    var signature = getSignature(x509, msg.references);
+    var soapMsg = getSoapMsg(properties.payload);
+    var signature = getSignature(x509, properties.references);
 
     var ctx = {
-             request: soapMsg
-           ,  replyTo: msg.replyTo
-           , url: msg.url
-           , action: msg.serviceProperties.action
+        request: soapMsg
+           , replyTo: properties.replyTo
+           , url: properties.url
+           , action: properties.serviceProperties.action
            , contentType: "text/xml"
     };
 
     var handlers = [
                   new ws.Addr("http://www.w3.org/2005/08/addressing")
-                , new ws.Security({}, [new ws.UsernameToken({ username: msg.userName }), x509, signature])
+                , new ws.Security({}, [new ws.UsernameToken({ username: properties.userName }), x509, signature])
                 , new ws.Http()
                 ];
 
-    ws.send(handlers, ctx, msg.handler);
+    ws.send(handlers, ctx, properties.handler);
 };
 
 function getSoapMsg(body){
