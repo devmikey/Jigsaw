@@ -4,8 +4,8 @@
 */
 
 var jigsaw = require('../lib/jigsaw.js');
-var documentProcessor = require('../lib/processors/documentProcessor');
-var queueProcessor = require('../lib/processors/queueProcessor');    
+var documentProcessor = require('./processors/documentProcessor');
+var queueProcessor = require('./processors/queueProcessor');    
 var interactionHandler = require('../lib/interactionHandler');
 
 var distributionEnvelopeTests = require('../tests/distributionEnvelope');
