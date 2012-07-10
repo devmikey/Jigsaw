@@ -9,11 +9,10 @@ var jigsaw = require('../lib/jigsaw.js');
 var interactionHandler = require('../lib/interactionHandler');
 var messageResponses = require('../client/messages/messageResponses');
 
-// typical requestException Interaction
-var requestException = function(req, res, callback) {
-    var msg = messageResponses.simpleResponse("OK");
-    console.log('received an async message, sending response back '+msg)
-    return callback(null, msg);
+// in response to an async call a http 200 message should be returned
+var httpResponse = function(req, res, callback) {
+    // if an error occurs on processing the incoming message then throw an error otherwise no data sent back
+    return callback(null);
 }
 
 /**
@@ -22,7 +21,7 @@ var requestException = function(req, res, callback) {
 
 var custommiddleware = [];
 var routes = new Array();
-routes.push(interactionHandler.create("/asyncreply/clinicaldocuments", "sync", custommiddleware,  requestException));
+routes.push(interactionHandler.create("/asyncreply/clinicaldocuments", "sync", custommiddleware,  httpResponse));
 var app = jigsaw.createServer(routes);
 app.addPublicKey("../certs-server/server_public.pem");
 app.listen(3001);
