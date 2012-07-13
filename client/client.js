@@ -45,7 +45,11 @@ function getX509Token(key){
 }
 
 function getFriendlyName(x509){
-    x509.getKey().split("subject=/CN=")[1].split("\n")[0];
+    var key = x509.getKey();
+    console.log(key);
+    //return key.split("subject=/CN=")[1].split("\n")[0];
+    return key.split("friendlyName: ")[1].split("\n")[0];
+
 }
 
  function getSignature(x509, references){

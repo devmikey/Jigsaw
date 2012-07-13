@@ -34,7 +34,7 @@ var testPayload = function(req, res, next) {
 };
 
 // Build the route paths - typically these would be loaded from a store
-var custommiddleware = [testPayload];
+var custommiddleware = [];
 
 var routes = new Array();
 
@@ -63,7 +63,12 @@ routes.push(interactionHandler.create("/queue/confirmcollection", "sync", [], qu
 
 // pass the routes paths in and get an instance of a jigsaw server
 var app = jigsaw.createServer(routes);
-app.addPublicKey("../certs-server/server_public.pem");
+app.addPublicKey(__dirname+ "/../certs-server/server_public.pem");
 
-// start listening for messages
-app.listen(3000);
+//app.initQueue("staff.mongohq.com", 10063, "nodejitsudb451731216781", function(err){
+
+app.initQueue("localhost", 27017, "jigsaw", function(err){
+    // start listening for messages once queue initialised
+    app.listen(3000);    
+});
+
