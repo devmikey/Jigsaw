@@ -31,7 +31,7 @@
   "devDependencies": [],
   "license": "MIT",
   "engines": {
-    "node": "0.6.x"
+    "node": ">= 0.6"
   },
   "private": true,
   "subdomain": "devmikey.Jigsaw",
