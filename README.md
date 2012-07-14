@@ -114,6 +114,8 @@ var msg = distributionEnvelope.create(msgProperties);
 client.send(msg);
 
 `````
+### License
+This software is licensed under the **MIT license**.
 
 Copyright (C) 2012 Michael Smith
 
