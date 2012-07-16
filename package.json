@@ -2,7 +2,7 @@
   "name": "jigsaw",
   "version": "0.1.0-45",
   "author": "devmikey <devmikey.js@gmail.com>",
-  "description": "An Implementation of an ITK Client and a Middleware",
+  "description": "An Implementation of an ITK Client and a Middleware Host",
   "contributors": [],
   "main": "./lib/jigsaw.js",
   "keywords": [
