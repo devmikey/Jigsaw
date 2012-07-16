@@ -66,9 +66,11 @@ var app = jigsaw.createServer(routes);
 app.addPublicKey(__dirname+ "/../certs-server/server_public.pem");
 
 //app.initQueue("staff.mongohq.com", 10063, "nodejitsudb451731216781", function(err){
-
+/*
 app.initQueue("localhost", 27017, "jigsaw", function(err){
     // start listening for messages once queue initialised
-    app.listen(3000);    
+    app.listen(3000);   
 });
+*/
 
+app.listen(3000);   
