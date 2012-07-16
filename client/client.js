@@ -46,8 +46,6 @@ function getX509Token(key){
 
 function getFriendlyName(x509){
     var key = x509.getKey();
-    console.log(key);
-    //return key.split("subject=/CN=")[1].split("\n")[0];
     return key.split("friendlyName: ")[1].split("\n")[0];
 
 }
