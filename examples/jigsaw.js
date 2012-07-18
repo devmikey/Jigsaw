@@ -63,7 +63,7 @@ routes.push(interactionHandler.create("/queue/confirmcollection", "sync", [], qu
 
 // pass the routes paths in and get an instance of a jigsaw server
 var app = jigsaw.createServer(routes);
-app.addPublicKey(__dirname+ "/certs-server/server_public.pem");
+app.addPublicKey("./certs-server/server_public.pem");
 
 //app.initQueue("staff.mongohq.com", 10063, "nodejitsudb451731216781", function(err){
 /*
@@ -72,5 +72,5 @@ app.initQueue("localhost", 27017, "jigsaw", function(err){
     app.listen(3000);   
 });
 */
-
+console.log("jigsaw running on http://localhost:3000");
 app.listen(3000);   
