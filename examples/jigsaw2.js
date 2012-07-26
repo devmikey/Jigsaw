@@ -21,7 +21,7 @@ var httpResponse = function(req, res, callback) {
 
 var custommiddleware = [];
 var routes = new Array();
-routes.push(interactionHandler.create("/asyncreply/clinicaldocuments", "sync", custommiddleware,  httpResponse));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example async message", "/asyncreply/clinicaldocuments", "sync", custommiddleware,  httpResponse));
 var app = jigsaw.createServer(routes);
 app.addPublicKey("../certs-server/server_public.pem");
 app.listen(3001);

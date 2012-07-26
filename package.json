@@ -1,6 +1,6 @@
 {
   "name": "jigsaw",
-  "version": "0.1.0-47",
+  "version": "0.1.0-48",
   "author": "devmikey <devmikey.js@gmail.com>",
   "description": "An Implementation of an ITK Client and a Middleware Host",
   "contributors": [],

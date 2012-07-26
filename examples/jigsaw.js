@@ -46,9 +46,9 @@ var routes = new Array();
 *    No middleware in this queue collection service
 */
 
-routes.push(interactionHandler.create("/simple/clinicaldocuments", "sync", custommiddleware, documentProcessor.requestException));
-routes.push(interactionHandler.create("/sync/clinicaldocuments", "sync", custommiddleware, documentProcessor.syncRequestResponseException));
-routes.push(interactionHandler.create("/async/clinicaldocuments", "async", custommiddleware, documentProcessor.asyncRequestResponseException));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example simple request/exception", "simple/clinicaldocuments", "sync", custommiddleware, documentProcessor.requestException));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example sync request/response/exception", "sync/clinicaldocuments", "sync", custommiddleware, documentProcessor.syncRequestResponseException));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example async request/response/exception", "async/clinicaldocuments", "async", custommiddleware, documentProcessor.asyncRequestResponseException));
 
 /* The queue collection service in this example is configured as follows:
 *
@@ -56,9 +56,9 @@ routes.push(interactionHandler.create("/async/clinicaldocuments", "async", custo
 *    No middleware used for the queue collection service
 */
 
-routes.push(interactionHandler.create("/queue/queuemessage", "sync", [], queueProcessor.addtoqueue));
-routes.push(interactionHandler.create("/queue/retrievebatch", "sync", [], queueProcessor.getfromqueue));
-routes.push(interactionHandler.create("/queue/confirmcollection", "sync", [], queueProcessor.removefromqueue));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example adding an item to queue", "queue/queuemessage", "sync", [], queueProcessor.addtoqueue));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example of retrieving a batch of messages", "queue/retrievebatch", "sync", [], queueProcessor.getfromqueue));
+routes.push(interactionHandler.create("urn:nhs-itk:services:201005:SendDocument-v1-0", "example of confirming message collection", "queue/confirmcollection", "sync", [], queueProcessor.removefromqueue));
 
 
 // pass the routes paths in and get an instance of a jigsaw server
