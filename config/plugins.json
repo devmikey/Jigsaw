@@ -1,0 +1,11 @@
+[{
+		"name" : "asyncRequestResponseException",
+		"location" : "..\\examples\\processors\\asyncRequestResponseException.js"
+	}, {
+		"name": "requestException",
+		"location" : "..\\examples\\processors\\requestException.js"
+	}, {
+		"name": "syncRequestResponseException",
+		"location" : "..\\examples\\processors\\syncRequestResponseException.js"
+	}
+]

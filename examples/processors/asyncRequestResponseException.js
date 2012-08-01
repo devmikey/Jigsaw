@@ -2,9 +2,7 @@
 
 The processor is responsible for the following
     1. Acting on the message - i.e. saving to a database
-    2. Supporting the requestException Interaction Pattern
-    3. Supporting the requestResponseException Interaction Pattern in a synchronous invocation style
-    4. Supporting the requestException Interaction Pattern in an asynchronous invocation style
+    2. Supporting the requestResponseException Interaction Pattern in an asynchronous invocation style
 
 */
 
@@ -16,54 +14,7 @@ var messageResponses = require('../../messages/messageResponses');
         return callback(null);
     }
 
-// typical requestException Interaction
-exports.requestException = function(req, res, callback) {
-    var msg;
-    try {
-            doAction(req, function(err) {
-                if(err == undefined) {
-                    // the business process should respond with a simple success payload for the requestException pattern
-                    msg = messageResponses.simpleResponse("OK");
-                }
-                else {
-                    // the business process should respond with a simple failure payload for the requestException pattern
-                    msg = messageResponses.simpleResponse("FAIL");
-                }    
-
-                console.log(msg)
-                return callback(null, msg);
-            })
-    }
-    catch(err) {
-        return callback(err);
-    }
-}
-
-// typical requestException Interaction
-exports.syncRequestResponseException = function(req, res, callback) {
-    var msg;
-    try {
-            doAction(req, function(err) {
-                if(err == undefined) {
-                    // define how the business process show respond in case of success
-                    msg = "<document><id>12345</id></document>";
-                }
-                else {
-                    // define how the business process show respond in case of failure
-                    msg = "<document><error>didn't save</error></document>";
-                }
-
-                console.log(msg)
-
-                return callback(null, msg);
-            })
-    }
-    catch(err) {
-        return callback(err);
-    }
-}
-
-exports.asyncRequestResponseException = function(req, res, callback) {
+exports.process = function(req, res, callback) {
     var properties;
     var app = req.app;
     var soapHeader = app.getHeader();
