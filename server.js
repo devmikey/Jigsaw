@@ -2,15 +2,19 @@
  *
  * This demonstrates configuring a jigsaw server to support ITK services
  */
-var jigsaw = require('../lib/jigsaw.js');
+var jigsaw = require('./lib/jigsaw.js');
 
 // spanners needs to provide functionality to manage plugins and settings
 
-var settingsFile = process.argv[2];
-var pluginFile = process.argv[3];
+var settings = process.argv[2];
+var plugins = process.argv[3];
 var publicKey = process.argv[4];
 
-jigsaw.createServer(settingsFile, pluginFile, function (err, app) {
+// need to throw an error if the params not passed in
+// need to consolidate all of the settings
+// need to get the port from the configuration
+
+jigsaw.createServer(settings, plugins, function (err, app) {
 	if (err != undefined) {
 		throw new Error(err);
 	};
@@ -24,7 +28,8 @@ jigsaw.createServer(settingsFile, pluginFile, function (err, app) {
 	app.listen(3000);
 	});
 	 */
-	console.log("jigsaw running on http://localhost:3000");
-	app.listen(3000);
+	var config = JSON.parse(settings);
+	console.log("jigsaw running on port " + config.port);
+	app.listen(config.port);
 });
 

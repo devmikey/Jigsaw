@@ -1,11 +1,14 @@
-[{
+[	
+	{
 		"name" : "asyncRequestResponseException",
-		"location" : "..\\examples\\processors\\asyncRequestResponseException.js"
-	}, {
-		"name": "requestException",
-		"location" : "..\\examples\\processors\\requestException.js"
-	}, {
-		"name": "syncRequestResponseException",
-		"location" : "..\\examples\\processors\\syncRequestResponseException.js"
+		"location" : "C:\\Users\\devmikey\\Documents\\GitHub\\Jigsaw\\examples\\processors\\asyncRequestResponseException.js"
+	}, 
+	{
+		"name" : "requestException",
+		"location" : "C:\\Users\\devmikey\\Documents\\GitHub\\Jigsaw\\examples\\processors\\requestException.js"
+	}, 
+	{
+		"name" : "syncRequestResponseException",
+		"location" : "C:\\Users\\devmikey\\Documents\\GitHub\\Jigsaw\\examples\\processors\\syncRequestResponseException.js"
 	}
 ]
