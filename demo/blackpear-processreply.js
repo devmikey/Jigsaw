@@ -5,11 +5,16 @@ The processor is responsible for the following
     2. Supporting the requestException Interaction Pattern
 */
 
-var messageResponses = require('../../messages/messageResponses');
+var messageResponses = require('../messages/messageResponses');
 
 // create a function with a callback whehre you perform the main process
  var doAction = function(req, callback) {
-        // stub
+		var msg = req.app.body.raw;
+        console.log("Received processing report from OpenEyes");
+		var documentid = req.app.body.json['soap:Body']['document']['id'];
+		var status = req.app.body.json['soap:Body']['document']['status'];
+		console.log("openEyes processed document: "+ documentid);
+		console.log("Reported processed: " +status);
         return callback(null);
     }
 
@@ -19,15 +24,11 @@ exports.process = function(req, res, callback) {
     try {
             doAction(req, function(err) {
                 if(err == undefined) {
-                    // the business process should respond with a simple success payload for the requestException pattern
-                    msg = messageResponses.simpleResponse("OK");
                 }
                 else {
-                    // the business process should respond with a simple failure payload for the requestException pattern
+                    // a http error should be throw here instead of a business exception
                     msg = messageResponses.simpleResponse("FAIL");
                 }    
-
-                console.log(msg)
                 return callback(null, msg);
             })
     }

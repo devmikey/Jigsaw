@@ -10,6 +10,11 @@ exports.send = function(properties) {
     }
 
     var soapMsg = getSoapMsg(properties.payload);
+	console.log("");
+	console.log("Sending Payload:");
+	console.log("");
+	console.log(properties.payload);
+	console.log("");
     var signature = getSignature(x509, properties.references);
 
     var ctx = {
