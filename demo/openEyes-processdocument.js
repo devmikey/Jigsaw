@@ -36,7 +36,14 @@ exports.process = function(req, res, callback) {
 
     try {
         doAction(req, function(err) {
-            console.log("ReplyTo " + soapHeader["wsa:ReplyTo"]["wsa:Address"])
+			if (soapHeader["wsa:ReplyTo"] == undefined) {
+				console.log("this is a synchronous call");
+			}
+			else {
+				console.log("this is a asynchronous call");
+				console.log("ReplyTo " + soapHeader["wsa:ReplyTo"]["wsa:Address"])
+			}
+            
             if(err == undefined) {
                 // define how the business process should reply to receipt of a message in the case of success
                 properties = {
@@ -65,7 +72,7 @@ exports.process = function(req, res, callback) {
         })
     }
     catch(err) {
-        console.log("asyncRequestResponseException Exception " + err)
+        console.log("openEyes Document Processing Exception " + err)
         return callback(err);
     }
 }

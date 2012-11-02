@@ -12,6 +12,15 @@ var routeConfig = {
 				"plugin" : "openEyes-processdocument",
 				"custommiddleware" : [],
 				"serviceStatus" : "started"
+			},
+		    {
+				"service" : "clinical.documents.openehr",
+				"description" : "Testing sync calls between blackpear and OpenEyes",
+				"route" : "openeyes/testing/clinicaldocs/openehr/sync",
+				"invocationstyle" : "sync",
+				"plugin" : "openEyes-processdocument",
+				"custommiddleware" : [],
+				"serviceStatus" : "started"
 			}
 		]
 	}
