@@ -14,7 +14,7 @@ To install clone from git then run npm install in the folder
     cd jigsaw
     npm install
 	
-## Demo
+## Asynchronous demo
 
 	A demonstration is included in the Demo Folder which shows how to configure a client to send an asynchronous message
 	to an Jigsaw Server called openEyes. 
@@ -30,6 +30,16 @@ To install clone from git then run npm install in the folder
 	If an synchronous message pattern is preferred then the blackpear-host is not required and the blackpear-async-client
     would process the response instead.	
 
+## Synchronous demo
+
+	A demonstration is included in the Demo Folder which shows how to configure a client to send a synchronous message
+	to an Jigsaw Server called openEyes. 
+		
+	To run this demo, you will need to run three shells:
+	
+    1. node openEyes-host.js
+	2. node blackpear-async-client.js
+	
 Jigsaw makes use of several key modules:
 
 * connect
