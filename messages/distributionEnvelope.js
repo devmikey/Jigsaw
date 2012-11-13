@@ -12,13 +12,16 @@ function documentDefaults(){
     return {
             "ns": "urn:nhs-itk:ns:201005",
             "nsprefix": "itk",
-            "handlingSpecification": null,
-            "action":  "urn:nhs-itk:services:201005:SendCDADocument-v1-0"
+            "handlingSpecification": [
+                {"key": "urn:nhs-itk:ns:201005:ackrequested", "value": "true"},
+                {"key": "urn:nhs-itk:ns:201005:interaction", "value": "POCD_IN150000GB01"}
+            ],
+            "action":  "urn:nhs-itk:services:201005:SendDocument-v1-0"
         }
 }
 
 function getServiceDefaults(serviceName){
-    if (serviceName == "urn:nhs-itk:services:201005:SendCDADocument-v1-0"){
+    if (serviceName == "urn:nhs-itk:services:201005:SendDocument-v1-0"){
         return documentDefaults();
     } 
     else {

@@ -46,7 +46,7 @@ exports.process = function(req, res, callback) {
             
             if(err == undefined) {
                 // define how the business process should reply to receipt of a message in the case of success
-                properties = {
+			   properties = {
                     "payload": "<document><id>"+soapHeader["wsa:MessageID"]+"</id><status>OK</status></document>",
                     "serviceProperties": {
                         "action": soapHeader["wsa:Action"]
