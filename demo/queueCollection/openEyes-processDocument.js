@@ -4,29 +4,28 @@ This is where the business logic should be triggered:
 	1. Store the message in the database
 	2. Send an response
 */
-
-var messageResponses = require('../messages/messageResponses');
+var messageResponses = require('../../messages/messageResponses');
 
 // create a function with a callback where you perform the main process
  var doAction = function(req, callback) {
         /* Add your business logic here e.g.
 			1. get msg
-			2. save it to the database for audit purposes
-			3. do some processing on it
-			4. decode the base 64 document
-			5. save it into the document store where the user can view it
+			2. store in the queue
+			3. return response depending upon whether call was async or sync
 		*/	
-		
+		var queueName = req.route.path;
 		// 	1. get msg
-		var msg = req.app.body.raw;
-		console.log("Received message from BlackPear");
-		
+		var app = req.app;
+		app.QueueProvider.add(app, queueName, function(err) {
+		  console.log("data added");
+		  return callback(err);
+	    });
 		//2. save it to the database for audit purposes 
 		//3. do some processing on it
 		//4. decode the base 64 document
 		//5. save it into the document store where the user can view it
 		
-        return callback(null);
+        
     }
 
 exports.process = function(req, res, callback) {
@@ -42,6 +41,7 @@ exports.process = function(req, res, callback) {
 			else {
 				console.log("this is a asynchronous call");
 				console.log("ReplyTo " + soapHeader["wsa:ReplyTo"]["wsa:Address"])
+				console.log("Action " + soapHeader["wsa:Action"]);
 			}
             
             if(err == undefined) {

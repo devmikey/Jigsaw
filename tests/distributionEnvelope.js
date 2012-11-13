@@ -18,6 +18,9 @@ exports.validate = function(logger, msg, callback) {
             'The trackingid is present': function(o) {
                 assert.notEqual(o["itk:header"].trackingid, undefined);
             },
+			'The trackingid is undefined': function(o) {
+                assert.notEqual(o["itk:header"].trackingid, 'undefined');
+            },
             'The addressList collection is not empty': function(o) {
                 assert.notEqual(o["itk:header"]["itk:addresslist"]["itk:address"].length, 0);
             },
@@ -32,6 +35,9 @@ exports.validate = function(logger, msg, callback) {
             },
             'The itk senderAddress is not empty': function(o) {
                 assert.notEqual(o["itk:header"]["itk:senderAddress"].uri, undefined);
+            },
+			'The itk senderAddress is not empty': function(o) {
+                assert.notEqual(o["itk:header"]["itk:senderAddress"].uri, 'undefined');
             },
             'The itk handlingSpecification collection is not empty': function(o) {
                 assert.notEqual(o["itk:header"]["itk:handlingSpecification"]["itk:spec"].length, 0);

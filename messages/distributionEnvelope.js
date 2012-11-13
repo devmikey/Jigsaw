@@ -12,16 +12,13 @@ function documentDefaults(){
     return {
             "ns": "urn:nhs-itk:ns:201005",
             "nsprefix": "itk",
-            "handlingSpecification": [
-                {"key": "urn:nhs-itk:ns:201005:ackrequested", "value": "true"},
-                {"key": "urn:nhs-itk:ns:201005:interaction", "value": "POCD_IN150000GB01"}
-            ],
-            "action":  "urn:nhs-itk:services:201005:SendDocument-v1-0"
+            "handlingSpecification": null,
+            "action":  "urn:nhs-itk:services:201005:SendCDADocument-v1-0"
         }
 }
 
 function getServiceDefaults(serviceName){
-    if (serviceName == "urn:nhs-itk:services:201005:SendDocument-v1-0"){
+    if (serviceName == "urn:nhs-itk:services:201005:SendCDADocument-v1-0"){
         return documentDefaults();
     } 
     else {
@@ -59,38 +56,45 @@ function toString(o){
   var nsprefix = o.serviceProperties.nsprefix;
   var temp = new Array();
 
-  temp.push(util.format("<%s:DistributionEnvelope xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:%s='%s'>", nsprefix, nsprefix, o.serviceProperties.ns));
-  temp.push(util.format("<%s:header service='%s' trackingid='%s'>", nsprefix, o.serviceName, o.trackingid));
+  temp.push(util.format("<%s:DistributionEnvelope xmlns:%s='%s' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>", nsprefix, nsprefix, o.serviceProperties.ns));
+  temp.push(util.format("<%s:header service='%s' trackingid='%s'>", nsprefix, o.serviceName, o.properties.trackingid));
   // Address List   
-  temp.push(util.format("<%s:addresslist>", nsprefix));
-  for (i = 0; i<o.properties.addresslist.length;i++){  
-    temp.push(util.format("<%s:address uri='%s'/>", nsprefix, o.properties.addresslist[i]));
-  };
-  temp.push(util.format("</%s:addresslist>", nsprefix));
-
+  
+  if (o.properties.addresslist) {
+	temp.push(util.format("<%s:addresslist>", nsprefix));
+	for (i = 0; i<o.properties.addresslist.length;i++){  
+		temp.push(util.format("<%s:address uri='%s'/>", nsprefix, o.properties.addresslist[i]));
+	};
+	temp.push(util.format("</%s:addresslist>", nsprefix));
+  }
   // Audit Identity
-  temp.push(util.format("<%s:auditIdentity>", nsprefix));
-  for (i = 0; i<o.properties.auditIdentity.length;i++){  
-    temp.push(util.format("<%s:id uri='%s'/>", nsprefix, o.properties.auditIdentity[i]));
-  };
-  temp.push(util.format("</%s:auditIdentity>", nsprefix));   
-             
+  if (o.properties.auditIdentity) {
+	temp.push(util.format("<%s:auditIdentity>", nsprefix));
+	for (i = 0; i<o.properties.auditIdentity.length;i++){  
+		temp.push(util.format("<%s:id uri='%s'/>", nsprefix, o.properties.auditIdentity[i]));
+	};
+	temp.push(util.format("</%s:auditIdentity>", nsprefix));   
+  }      
   // Manifest
   temp.push(util.format("<%s:manifest count='%s'>", nsprefix, o.properties.manifest.length));
   for (i = 0; i<o.properties.manifest.length;i++){   
     temp.push(util.format("<%s:manifestitem mimetype='%s' id='uuid_%s'/>", nsprefix, o.properties.manifest[i].mimetype, o.properties.manifest[i].id));
   };
+  
   temp.push(util.format("</%s:manifest>", nsprefix));
-
-  temp.push(util.format("<%s:senderAddress uri='%s'/>", nsprefix, o.senderAddress));
-
+  if (o.properties.senderAddress) {
+    temp.push(util.format("<%s:senderAddress uri='%s'/>", nsprefix, o.properties.senderAddress));
+  }
+  
   // Handling Specification 
-  temp.push(util.format("<%s:handlingSpecification>", nsprefix));
-  for (i = 0; i<o.serviceProperties.handlingSpecification.length;i++){   
-    temp.push(util.format("<%s:spec value='%s' key='uuid_%s'/>", nsprefix, o.serviceProperties.handlingSpecification[i].value, o.serviceProperties.handlingSpecification[i].key))
-  };
-  temp.push(util.format("</%s:handlingSpecification>", nsprefix));
-
+  if (o.serviceProperties.handlingSpecification) {
+	temp.push(util.format("<%s:handlingSpecification>", nsprefix));
+	for (i = 0; i<o.serviceProperties.handlingSpecification.length;i++){   
+		temp.push(util.format("<%s:spec value='%s' key='uuid_%s'/>", nsprefix, o.serviceProperties.handlingSpecification[i].value, o.serviceProperties.handlingSpecification[i].key))
+	};
+	temp.push(util.format("</%s:handlingSpecification>", nsprefix));
+  }
+  
   temp.push(util.format("</%s:header>", nsprefix));
 
   // Payloads
@@ -99,7 +103,7 @@ function toString(o){
       temp.push(util.format("<%s:payload id='uuid_%s'>%s</%s:payload>", nsprefix, o.properties.manifest[i].id, o.properties.manifest[i].data, nsprefix));
   };
   temp.push(util.format("</%s:payloads>", nsprefix));
-
+  
   temp.push(util.format("</%s:DistributionEnvelope>", nsprefix));
 
   return temp.join('');

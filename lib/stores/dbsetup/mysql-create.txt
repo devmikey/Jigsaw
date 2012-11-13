@@ -1,0 +1,1 @@
+CREATE  TABLE `jigsaw`.`queue` (  `id` INT NOT NULL AUTO_INCREMENT ,  `messageId` VARCHAR(45) NOT NULL ,  `queueName` VARCHAR(255) NOT NULL ,  `message` BLOB NOT NULL ,  `datereceived` DATETIME NOT NULL ,  PRIMARY KEY (`id`) ,  UNIQUE INDEX `id_UNIQUE` (`id` ASC) ,  UNIQUE INDEX `messageId_UNIQUE` (`messageId` ASC) );
