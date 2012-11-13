@@ -40,6 +40,39 @@ To install clone from git then run npm install in the folder
     1. node openEyes-host.js
 	2. node blackpear-async-client.js
 	
+## Queue Collection demo
+
+	A demonstration is included in the Demo/QueueCollection Folder which shows how to use the queue collection pattern
+	
+	The queue collection service relies on the prescence of a mysql database called jigsaw
+	this database needs to be setup and a single table created called queue.
+	
+	The table creation script is found in Jigsaw\lib\stores\dbsetup	
+	
+	The queueServer is configured to access the database through a QueueProvider.
+	
+	To initiate a connection use QueueProvider.connect 
+	This accepts the params (application, host, port, database, user, password)
+	
+	You can amend the host, database, user and password as required e.g. 
+	
+	app.QueueProvider.connect(app, 'localhost', '3306', 'jigsaw','jigsawuser','test1234');
+	
+	Once configured you can test that the queue accepts messages by sending a message to the server as follows:
+
+    1. node queueServer.js
+	2. node blackpear-sync-client.js
+	
+	You should find a message has been stored within the queue table.
+	
+	To retrieve a batch of messages run
+	
+	3. node openEyes-retrieveBatch.js
+	
+	To confirm delivery of the messages run
+	
+	4. node blackpear-confirmCollection.js
+	
 Jigsaw makes use of several key modules:
 
 * connect
