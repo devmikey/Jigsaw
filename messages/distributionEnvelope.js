@@ -20,9 +20,22 @@ function documentDefaults(){
         }
 }
 
+function documentCDADefaults(){
+    return {
+            "ns": "urn:nhs-itk:ns:201005",
+            "nsprefix": "itk",
+            "handlingSpecification": null,
+            "action":  "urn:nhs-itk:services:201005:SendCDADocument-v1-0"
+        }
+}
+
+
 function getServiceDefaults(serviceName){
     if (serviceName == "urn:nhs-itk:services:201005:SendDocument-v1-0"){
         return documentDefaults();
+    }
+	if (serviceName == "urn:nhs-itk:services:201005:SendCDADocument-v1-0"){
+        return documentCDADefaults();
     } 
     else {
         return {};
@@ -97,6 +110,7 @@ function toString(o){
 	};
 	temp.push(util.format("</%s:handlingSpecification>", nsprefix));
   }
+  
   
   temp.push(util.format("</%s:header>", nsprefix));
 
